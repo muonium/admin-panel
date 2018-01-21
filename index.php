@@ -15,6 +15,7 @@
     </nav>
     <header>
         <h1>Admin Panel</h1>
+	<img src="assets/img/mui.png"></img>
     </header>
     <div>
         <p>
