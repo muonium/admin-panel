@@ -3,9 +3,10 @@
 include_once("../runDeleteUser.php");
 
 $cron = new cronDeleteUser();
-ob_start();
-$error = false;
+
 if(!empty($_POST)) {
+    ob_start();
+    $error = false;
     switch($_POST['typeOfDelete']) {
             case "id":
                 $cron->deleteByID($_POST['textValue']);
@@ -21,17 +22,17 @@ if(!empty($_POST)) {
                 $result = "Unknow value of delete type"; 
                 break;
     }
-    
-}
-$trashOutput = ob_get_clean();
-$isHere = strpos($trashOutput, "User not found in database.\n");
-if($isHere === false) {
-    if(!$error) {
-        $result = "User successfully deleted.";
+    $trashOutput = ob_get_clean();
+    $isHere = strpos($trashOutput, "User not found in database.\n");
+    if($isHere === false) {
+        if(!$error) {
+            $result = "User successfully deleted.";
+        }
+    } else {
+        $result = "User not found in database.";
     }
-} else {
-    $result = "User not found in database.";
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -55,7 +56,11 @@ if($isHere === false) {
     </header>
     <div>
         <div>
-           <?php echo $result; ?>
+            <?php
+                if(isset($result)) {
+                    echo $result; 
+                }
+            ?>
         </div>
         <form action="./deleteMember.php" method="post">
             <fieldset>
