@@ -10,7 +10,7 @@
         <ul>
             <li><a href="./index.php">AdminPanel</a></li>
             <li><a href="./deleteMember.php">Delete member</a></li>
-            <li><a href="./lastMembers.php">Lasts members</a></li>
+            <li><a href="./lastMembers.php">Last members</a></li>
         </ul>
     </nav>
     <header>
