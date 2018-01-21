@@ -1,0 +1,72 @@
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    position: relative;
+    padding: 0px;
+    padding-bottom: 5em;
+    margin: 0px;
+}
+
+* {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*Navbar */
+nav {
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+nav > ul {
+    height: 50px;
+    display: flex;
+    list-style: none;
+    margin: 0px;
+    padding: 5px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    text-align: center;
+}
+
+nav > ul > li {
+    margin: auto;
+    flex: 1;
+}
+
+nav > ul > li:first-child {
+    font-size: 25px;
+    align-self: flex-end;
+    text-align: left;
+    flex: 5;
+}
+nav > ul > li > a {
+    text-decoration: none;
+    color: black;
+}
+/*Navbar*/
+
+/*Header*/
+header {
+    text-align: center;
+}
+/*Header*/
+
+/*Form*/
+form > fieldset > div {
+    padding: 10px;
+}
+/*Form*/
+
+/*Footer*/
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+/*Footer*/
