@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Panel Admin - Index</title>
+    <title>Admin Panel - Index</title>
     <link href="./assets/css/css.css" rel="stylesheet">
 </head>
 <body>
@@ -14,7 +14,7 @@
         </ul>
     </nav>
     <header>
-        <h1>Panel Admin</h1>
+        <h1>Admin Panel</h1>
     </header>
     <div>
         <p>
@@ -23,7 +23,7 @@
     </div>
     <footer>
         <p>
-            Panel Admin for Muonium
+            Admin Panel for Muonium
         </p>
     </footer>
 </body>

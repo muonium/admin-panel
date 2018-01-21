@@ -39,7 +39,7 @@ if(!empty($_POST)) {
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Panel Admin - Index</title>
+    <title>Admin Panel - Index</title>
     <link href="./assets/css/css.css" rel="stylesheet">
 </head>
 
@@ -99,7 +99,7 @@ if(!empty($_POST)) {
     </div>
     <footer>
         <p>
-            Panel Admin for Muonium 
+            Admin Panel for Muonium 
         </p>
     </footer>
 </body>
