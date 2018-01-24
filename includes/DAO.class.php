@@ -74,12 +74,12 @@ class DAO {
     }
     
     function deleteUserVerification($anUserID) {
-		$req = self::$_sql->prepare("DELETE FROM user_validation WHERE id = :id");
+        $req = self::$_sql->prepare("DELETE FROM user_validation WHERE id = :id");
         $req->bindValue(':id', $anUserID, PDO::PARAM_INT);
         $req->execute();
-		$count = $req->rowCount();
+        $count = $req->rowCount();
         $req->closeCursor();
-		return $count;
+        return $count;
 	}
     
 }
