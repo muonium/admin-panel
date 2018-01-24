@@ -10,12 +10,12 @@
         <ul>
             <li><a href="./index.php">AdminPanel</a></li>
             <li><a href="./deleteMember.php">Delete member</a></li>
-            <li><a href="./lastMembers.php">Last members</a></li>
+            <li><a href="./deleteValidation.php">Delete user validation</a></li>
         </ul>
     </nav>
     <header>
         <h1>Admin Panel</h1>
-	<img src="assets/img/mui.png"></img>
+	    <img src="assets/img/mui.png"><img/>
     </header>
     <div>
         <p>
