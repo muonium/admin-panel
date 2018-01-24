@@ -9,7 +9,12 @@ if(!empty($_POST)) {
     $error = false;
     switch($_POST['typeOfDelete']) {
             case "id":
-                $cron->deleteByID($_POST['textValue']);
+                if(is_numeric($_POST['textValue'])) {
+                    $cron->deleteByID($_POST['textValue']); 
+                } else {
+                    $error = true;
+                    $result = "ID specified isn't an integer"; 
+                }
                 break;
             case "email":
                 $cron->deleteByEmail($_POST['textValue']);
@@ -48,7 +53,7 @@ if(!empty($_POST)) {
         <ul>
             <li><a href="./index.php">AdminPanel</a></li>
             <li><a href="./deleteMember.php">Delete member</a></li>
-            <li><a href="./lastMembers.php">Last members</a></li>
+            <li><a href="./deleteValidation.php">Delete user validation</a></li>
         </ul>
     </nav>
     <header>
