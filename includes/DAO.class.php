@@ -74,13 +74,21 @@ class DAO {
     }
     
     function deleteUserVerification($anUserID) {
-        $req = self::$_sql->prepare("DELETE FROM user_validation WHERE id = :id");
-        $req->bindValue(':id', $anUserID, PDO::PARAM_INT);
+        $req = self::$_sql->prepare("DELETE FROM user_validation WHERE id_user = :id_user");
+        $req->bindValue(':id_user', $anUserID, PDO::PARAM_INT);
         $req->execute();
         $count = $req->rowCount();
         $req->closeCursor();
         return $count;
 	}
+    
+    function getAllStoragePlans() {
+        $req = self::$_sql->prepare("SELECT * FROM storage_plans");
+        $req->execute();
+        $result = $req->fetchAll();
+        $req->closeCursor();
+        return $result;
+    }
     
 }
 
