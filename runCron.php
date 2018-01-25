@@ -3,13 +3,21 @@
 if(!empty($_POST)) {
     $message = "";
     if(isset($_POST["cronEveryDay"])) {
-        require_once(dirname(__DIR__).'/runEveryDay.php');
-        $message .= "cron runEveryDay executed.<br/>";
+        if(file_exists(dirname(__DIR__).'/runEveryDay.php')) {
+            require_once(dirname(__DIR__).'/runEveryDay.php');
+            $message .= "cron runEveryDay executed.<br/>"; 
+        } else {
+            $message .= 'Couldn\'t find runEveryDay.php file.<br/>';
+        }
     }
        
     if(isset($_POST["cronEveryMonth"])) {
-        require_once(dirname(__DIR__).'/runEveryMonth.php');
-        $message .= "cron runEveryMonth executed.<br/>";
+        if(file_exists(dirname(__DIR__).'/runEveryMonth.php')) {
+            require_once(dirname(__DIR__).'/runEveryMonth.php');
+            $message .= "cron runEveryMonth executed.<br/>";
+        } else {
+            $message .= 'Couldn\'t find runEveryMonth.php file.<br/>';
+        }
     }
 }
 
