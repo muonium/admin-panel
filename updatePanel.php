@@ -1,22 +1,22 @@
 <?php
 if(!empty($_POST)) {
-    $output = shell_exec(dirname(__DIR__) . '/deploy.sh 2>&1');
+    $output = shell_exec(dirname(__DIR__) . '/panel_deploy.sh 2>&1');
     $error = $output;
-    $message = "New version deployed.<br/>";
+    $message = "New version of admin panel deployed.";
 }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Admin Panel - Deploy new version</title>
+    <title>Admin Panel - Update panel</title>
     <link href="./assets/css/css.css" rel="stylesheet">
 </head>
 
 <body>
     <?php include("./includes/navbar.php"); ?>
     <header>
-        <h1>Deploy new version</h1>
+        <h1>Update Admin panel</h1>
     </header>
     <div>
         <div>
@@ -30,11 +30,11 @@ if(!empty($_POST)) {
                 }
             ?>
         </div>
-        <form action="./deployNewVersion.php" method="post">
+        <form action="./updatePanel.php" method="post">
             <fieldset>
-                <legend>Deploy new version</legend>
+                <legend>Update Admin panel</legend>
                 <div>
-                    <button type="submit" id="deployButton" name="deployButton">Deploy</button>
+                    <button type="submit" id="updatePanelButton" name="updatePanelButton">Update</button>
                 </div>
             </fieldset>
         </form>

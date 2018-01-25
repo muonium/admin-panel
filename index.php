@@ -6,15 +6,7 @@
     <link href="./assets/css/css.css" rel="stylesheet">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="./index.php">AdminPanel</a></li>
-            <li><a href="./runCron.php">Run crons</a></li>
-            <li><a href="./deployNewVersion.php">Deploy new version</a></li>
-            <li><a href="./deleteMember.php">Delete member</a></li>
-            <li><a href="./deleteValidation.php">Delete user validation</a></li>
-        </ul>
-    </nav>
+    <?php include("./includes/navbar.php"); ?>
     <header>
         <h1>Admin Panel</h1>
 	    <img src="assets/img/mui.png"><img/>
@@ -24,10 +16,6 @@
             
         </p>
     </div>
-    <footer>
-        <p>
-            Admin Panel for Muonium
-        </p>
-    </footer>
+    <?php include("./includes/footer.php"); ?>
 </body>
 </html>

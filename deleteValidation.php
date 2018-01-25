@@ -62,15 +62,7 @@ if(!empty($_POST)) {
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li><a href="./index.php">AdminPanel</a></li>
-            <li><a href="./runCron.php">Run crons</a></li>
-            <li><a href="./deployNewVersion.php">Deploy new version</a></li>
-            <li><a href="./deleteMember.php">Delete member</a></li>
-            <li><a href="./deleteValidation.php">Delete user validation</a></li>
-        </ul>
-    </nav>
+    <?php include("./includes/navbar.php"); ?>
     <header>
         <h1>Delete user validation</h1>
     </header>
@@ -117,10 +109,6 @@ if(!empty($_POST)) {
             </fieldset>
         </form>
     </div>
-    <footer>
-        <p>
-            Admin Panel for Muonium 
-        </p>
-    </footer>
+    <?php include("./includes/footer.php"); ?>
 </body>
 </html>
