@@ -13,7 +13,7 @@ if(!empty($_POST)) {
                     $cron->deleteByID($_POST['textValue']); 
                 } else {
                     $error = true;
-                    $result = "ID specified isn't an integer"; 
+                    $result = "ID specified isn't an integer";
                 }
                 break;
             case "email":
@@ -52,6 +52,7 @@ if(!empty($_POST)) {
     <nav>
         <ul>
             <li><a href="./index.php">AdminPanel</a></li>
+            <li><a href="./deployNewVersion.php">Deploy new version</a></li>
             <li><a href="./deleteMember.php">Delete member</a></li>
             <li><a href="./deleteValidation.php">Delete user validation</a></li>
         </ul>
