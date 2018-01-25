@@ -2,7 +2,7 @@
 if(!empty($_POST)) {
     $output = shell_exec(dirname(__DIR__) . '/deploy.sh 2>&1');
     $error = $output;
-    $message = "New version deployed.<br/>";
+    $message = "New version deployed.";
 }
 ?>
 <!DOCTYPE html>
@@ -23,12 +23,15 @@ if(!empty($_POST)) {
             <?php
                 echo '<br/>';
                 if(isset($error)) {
-                    if($error == "" && isset($message)) {
-                        echo $message; 
-                    }
-                    echo $error.'<br/><br/>';
+                    echo $error;
+                } else {
+                   if(isset($message)) {
+                        echo $message;
+                   } 
                 }
             ?>
+            <br/>
+            <br/>
         </div>
         <form action="./deployNewVersion.php" method="post">
             <fieldset>

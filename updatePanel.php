@@ -23,12 +23,15 @@ if(!empty($_POST)) {
             <?php
                 echo '<br/>';
                 if(isset($error)) {
-                    if($error == "" && isset($message)) {
-                        echo $message; 
-                    }
-                    echo $error.'<br/><br/>';
+                    echo $error;
+                } else {
+                   if(isset($message)) {
+                        echo $message;
+                   } 
                 }
             ?>
+            <br/>
+            <br/>
         </div>
         <form action="./updatePanel.php" method="post">
             <fieldset>
