@@ -74,20 +74,77 @@ class DAO {
     }
     
     function deleteUserVerification($anUserID) {
-        $req = self::$_sql->prepare("DELETE FROM user_validation WHERE id_user = :id_user");
-        $req->bindValue(':id_user', $anUserID, PDO::PARAM_INT);
-        $req->execute();
-        $count = $req->rowCount();
-        $req->closeCursor();
+        $theRequest = self::$_sql->prepare("DELETE FROM user_validation WHERE id_user = :id_user");
+        $theRequest->bindValue(':id_user', $anUserID, PDO::PARAM_INT);
+        $theRequest->execute();
+        $count = $theRequest->rowCount();
+        $theRequest->closeCursor();
         return $count;
 	}
     
     function getAllStoragePlans() {
-        $req = self::$_sql->prepare("SELECT * FROM storage_plans");
-        $req->execute();
-        $result = $req->fetchAll();
-        $req->closeCursor();
+        $theRequest = self::$_sql->prepare("SELECT * FROM storage_plans");
+        $theRequest->execute();
+        $result = $theRequest->fetchAll();
+        $theRequest->closeCursor();
         return $result;
+    }
+    
+    function deleteStoragePlan($planID) {
+        $theRequest = self::$_sql->prepare("DELETE FROM storage_plans WHERE id = :id");
+        $theRequest->bindValue(':id', $planID, PDO::PARAM_INT);
+        $theRequest->execute();
+    }
+    
+    function getStoragePlan($planID) {
+        $theRequest = self::$_sql->prepare("SELECT * FROM storage_plans WHERE id = :id");
+        $theRequest->bindValue(':id', $planID, PDO::PARAM_INT);
+        $theRequest->execute();
+        $result = $theRequest->fetchAll();
+        $theRequest->closeCursor();
+        if(!empty($result[0])) {
+            return $result[0];
+        } else {
+            return false;
+        }
+    }
+    
+    function isProductIDAlradyInDatabase($productID) {
+        $theRequest = self::$_sql->prepare('SELECT COUNT(*) FROM storage_plans WHERE product_id = :product_id');
+        $theRequest->bindValue(':product_id', $productID, PDO::PARAM_INT);
+        $theRequest->execute();
+        $result = $theRequest->fetch();
+        $theRequest->closeCursor();
+        return !($result[0] == 0); 
+    }
+    
+    function isProductAlradyInDatabase($aID) {
+        $theRequest = self::$_sql->prepare('SELECT COUNT(*) FROM storage_plans WHERE id = :id');
+        $theRequest->bindValue(':id', $aID, PDO::PARAM_INT);
+        $theRequest->execute();
+        $result = $theRequest->fetch();
+        $theRequest->closeCursor();
+        return !($result[0] == 0); 
+    }
+    
+    function addStoragePlan($aSize, $aPrice, $aDuration, $aProductID) {
+        $theRequest = self::$_sql->prepare('INSERT INTO storage_plans(size, price, currency, duration, product_id) VALUES(:size, :price, :currency, :duration, :product_id)');
+        $theRequest->bindValue(':size', $aSize, PDO::PARAM_INT);
+        $theRequest->bindValue(':price', $aPrice, PDO::PARAM_INT);
+        $theRequest->bindValue(':currency', "EUR", PDO::PARAM_STR);
+        $theRequest->bindValue(':duration', $aDuration, PDO::PARAM_INT);
+        $theRequest->bindValue(':product_id', $aProductID, PDO::PARAM_STR);
+        $theRequest->execute();
+    }
+    
+    function modifyStoragePlan($aID, $aSize, $aPrice, $aDuration, $aProductID) {
+        $theRequest = self::$_sql->prepare('UPDATE storage_plans SET size = :size, price = :price, duration = :duration, product_id = :product_id WHERE id = :id');
+        $theRequest->bindValue(':size', $aSize, PDO::PARAM_INT);
+        $theRequest->bindValue(':price', $aPrice, PDO::PARAM_INT);
+        $theRequest->bindValue(':duration', $aDuration, PDO::PARAM_INT);
+        $theRequest->bindValue(':product_id', $aProductID, PDO::PARAM_STR);
+        $theRequest->bindValue(':id', $aID, PDO::PARAM_INT);
+        $theRequest->execute();
     }
     
 }
