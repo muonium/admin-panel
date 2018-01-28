@@ -46,8 +46,8 @@ $plans = $DAO->getAllStoragePlans();
                             echo '<td>'.$plan['currency'].'</td>';
                             echo '<td>'.$plan['duration'].'</td>';
                             echo '<td>'.$plan['product_id'].'</td>';
-                            echo '<td><a href="./plansEdit.php?id='.$plan['id'].'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>';
-                            echo '<td><a href="./plansDelete.php?id='.$plan['id'].'"><i class="fa fa-times" aria-hidden="true"></i></a></td>';
+                            echo '<td><a href="./plansEdit.php?id='.$plan['id'].'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a></td>';
+                            echo '<td><a href="./plansDelete.php?id='.$plan['id'].'"><i class="fa fa-times" aria-hidden="true"></i>Delete</a></td>';
                             echo '</tr>';
                         }
                         ?>
