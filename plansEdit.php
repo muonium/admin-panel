@@ -7,8 +7,8 @@ $DAO = new DAO();
 
 if(!empty($_POST)) {
     if($DAO->isProductAlradyInDatabase($_POST['id'])) {
-        if(!$DAO->isProductIDAlradyInDatabase($_POST['id'], $_POST['productID'])) {
-            $DAO->modifyStoragePlan($_POST['id'], $_POST['size']*1000, $_POST['price'], $_POST['duration'], $_POST['productID']);
+        if(!$DAO->isEditProductID($_POST['id'], $_POST['productID'])) {
+            $DAO->modifyStoragePlan($_POST['id'], $_POST['size']*1000000, $_POST['price'], $_POST['duration'], $_POST['productID']);
             $plan = $DAO->getStoragePlan($_POST['id']);
             $message = "Storage plan successfully edited.";
             header('refresh:2;url=./plansManagement.php'); 
@@ -65,9 +65,9 @@ if(!empty($_POST)) {
                     </div>
                     <br/>
                     <div>
-                        <label for="size">Size (MB)</label>  
+                        <label for="size">Size (GB)</label>  
                         <div>
-                            <input type="number" name="size" value="<?php echo $plan['size']/1000; ?>" step="10" min="0" required>
+                            <input type="number" name="size" value="<?php echo $plan['size']/1000000; ?>" step="1" min="0" required>
                         </div>
                     </div>
                     <br/>

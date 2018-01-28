@@ -28,7 +28,7 @@ $plans = $DAO->getAllStoragePlans();
                 <table>
                     <thead>
                         <th>ID</th>
-                        <th>Size (MB)</th>
+                        <th>Size (GB)</th>
                         <th>Price</th>
                         <th>Currency</th>
                         <th>Duration (Months)</th>
@@ -41,7 +41,7 @@ $plans = $DAO->getAllStoragePlans();
                         foreach($plans as $plan) {
                             echo '<tr>';
                             echo '<td>'.$plan['id'].'</td>';
-                            echo '<td>'.($plan['size']/1000).'</td>';
+                            echo '<td>'.($plan['size']/1000000).'</td>';
                             echo '<td>'.$plan['price'].'</td>';
                             echo '<td>'.$plan['currency'].'</td>';
                             echo '<td>'.$plan['duration'].'</td>';
