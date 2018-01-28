@@ -7,7 +7,7 @@ $DAO = new DAO();
 
 if(!empty($_POST)) {
     if(!$DAO->isProductIDAlradyInDatabase($_POST['productID'])) {
-        $DAO->addStoragePlan($_POST['size']*1000000, $_POST['price'], $_POST['duration'], $_POST['productID']);
+        $DAO->addStoragePlan($_POST['size']*1000000000, $_POST['price'], $_POST['duration'], $_POST['productID']);
         $message = "Storage plan successfully added.";
     } else {
         $message = "Product ID already exists.";
