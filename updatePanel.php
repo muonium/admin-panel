@@ -38,6 +38,7 @@ if(!empty($_POST)) {
                 <legend>Update Admin panel</legend>
                 <div>
                     <button type="submit" id="updatePanelButton" name="updatePanelButton">Update</button>
+					<a href="/panel">Get back to the panel</a>
                 </div>
             </fieldset>
         </form>
