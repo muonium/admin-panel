@@ -8,3 +8,9 @@ go to core/, then create cron, enter cron and clone it there, such as:
  - cron
  |
   - panel
+
+
+To edit while deploying:
+------------------------
+
+- in HTML deploy new release: change href
