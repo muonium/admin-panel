@@ -1,6 +1,6 @@
 <?php
 if(!empty($_POST)) {
-    $output = shell_exec(dirname(__DIR__) . '/panel_deploy.sh 2>&1');
+    $output = shell_exec(dirname(__DIR__) . '/deploy.sh --panel 2>&1');
     $error = $output;
     $message = "New version of admin panel deployed.";
 }
@@ -27,7 +27,7 @@ if(!empty($_POST)) {
                 } else {
                    if(isset($message)) {
                         echo $message;
-                   } 
+                   }
                 }
             ?>
             <br/>
