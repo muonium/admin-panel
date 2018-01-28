@@ -109,9 +109,10 @@ class DAO {
         }
     }
     
-    function isProductIDAlradyInDatabase($productID) {
-        $theRequest = self::$_sql->prepare('SELECT COUNT(*) FROM storage_plans WHERE product_id = :product_id');
+    function isProductIDAlradyInDatabase($aID, $productID) {
+        $theRequest = self::$_sql->prepare('SELECT COUNT(*) FROM storage_plans WHERE product_id = :product_id AND id != :id');
         $theRequest->bindValue(':product_id', $productID, PDO::PARAM_INT);
+        $theRequest->bindValue(':id', $aID, PDO::PARAM_INT);
         $theRequest->execute();
         $result = $theRequest->fetch();
         $theRequest->closeCursor();
