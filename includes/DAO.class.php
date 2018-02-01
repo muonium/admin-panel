@@ -37,6 +37,21 @@ class DAO {
         }
     }
     
+    public function getStorage($anUserID) {
+        $theRequest = self::$_sql->prepare('SELECT user_quota FROM storage WHERE id_user = :id_user');
+        $theRequest->bindParam(':id_user', $anUserID, PDO::PARAM_INT);
+        $theRequest->execute();
+        $storage = $theRequest->fetch();
+        return $storage['user_quota'];
+    }
+    
+    public function changeStorageUser($anUserID, $aNewQuota) {
+        $theRequest = self::$_sql->prepare('UPDATE storage SET user_quota = :user_quota WHERE id_user = :id_user');
+        $theRequest->bindValue(':user_quota', $aNewQuota, PDO::PARAM_INT);
+        $theRequest->bindValue(':id_user', $anUserID, PDO::PARAM_INT);
+        $theRequest->execute();
+    }
+    
     public function getIDfromUsername($anUsername) {
         $theRequest = self::$_sql->prepare('SELECT id FROM users WHERE login = :login');
         $theRequest->bindParam(':login', $anUsername, PDO::PARAM_STR);
