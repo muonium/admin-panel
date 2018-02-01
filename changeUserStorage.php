@@ -54,8 +54,12 @@ if(!empty($_POST)) {
             <legend>Change user's storage</legend>
             <div>
                 <br/>
-                <?php echo 'Actual storage : '.$storage/1000000 .' MB'; ?>
-                <br/>
+                <?php
+                    echo 'ID : '.$id.'<br/>'; 
+                    echo 'Email : '.$infos['email'].'<br/>'; 
+                    echo 'Login : '.$infos['login'].'<br/>'; 
+                    echo 'Actual storage : '.$storage/1000000 .' MB<br/>';
+                ?>
                 <br/>
                 <form action="./changeUserStorage.php" method="post">
                     <div>

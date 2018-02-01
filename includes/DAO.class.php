@@ -37,6 +37,41 @@ class DAO {
         }
     }
     
+    public function getStats() {
+        $stats['nbAccounts'] = self::getNbAccounts();
+        $stats['nbPaidPlans'] = self::getNbPaidPlans();
+        $stats['storedSize'] = self::getStoredSize();
+        $stats['freeSpaceRemaining'] = self::getFreeSpaceRemaining();
+        return $stats;
+    }
+    
+    public function getNbAccounts() {
+        $theRequest = self::$_sql->prepare('SELECT COUNT(*) FROM users');
+        $theRequest->execute();
+        $nbAccouts = $theRequest->fetch();
+        return $nbAccouts[0];
+    }
+    
+    public function getNbPaidPlans() {
+        $theRequest = self::$_sql->prepare('SELECT COUNT(*) FROM upgrade');
+        $theRequest->execute();
+        $nbPaidPlans = $theRequest->fetch();
+        return $nbPaidPlans[0];
+    }
+    
+    public function getStoredSize() {
+        $theRequest = self::$_sql->prepare('SELECT SUM(size_stored) FROM storage');
+        $theRequest->execute();
+        $storedSize = $theRequest->fetch();
+        return $storedSize[0];
+    }
+    
+    public function getFreeSpaceRemaining() {
+        $dir = dirname(__DIR__, 4).'/nova';
+        $freeSpaceRemaining = disk_free_space($dir);
+        return $freeSpaceRemaining;
+    }
+    
     public function getStorage($anUserID) {
         $theRequest = self::$_sql->prepare('SELECT user_quota FROM storage WHERE id_user = :id_user');
         $theRequest->bindParam(':id_user', $anUserID, PDO::PARAM_INT);
