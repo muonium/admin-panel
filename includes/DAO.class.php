@@ -14,6 +14,29 @@ class DAO {
         self::$_sql = new \PDO('mysql:host='.conf\confDB::host.';dbname='.conf\confDB::db,conf\confDB::user,conf\confDB::password);
     }
     
+    public function isValidated($anUserID) {
+        $theRequest = self::$_sql->prepare('SELECT COUNT(*) FROM user_validation WHERE id_user = :id_user');
+        $theRequest->bindValue(':id_user', $anUserID, PDO::PARAM_INT);
+        $theRequest->execute();
+        $result = $theRequest->fetch();
+        $theRequest->closeCursor();
+        return ($result[0] == 0);
+        
+    }
+    
+    public function getInfos($anID) {
+        $theRequest = self::$_sql->prepare('SELECT * FROM users WHERE id = :id');
+        $theRequest->bindParam(':id', $anID, PDO::PARAM_INT);
+        $theRequest->execute();
+        $infos = $theRequest->fetchAll(\PDO::FETCH_ASSOC);
+        if(isset($infos[0])) {
+            return $infos[0];
+        }
+        else {
+            return false;
+        }
+    }
+    
     public function getIDfromUsername($anUsername) {
         $theRequest = self::$_sql->prepare('SELECT id FROM users WHERE login = :login');
         $theRequest->bindParam(':login', $anUsername, PDO::PARAM_STR);
@@ -46,7 +69,7 @@ class DAO {
         return $username;
     }
     
-    function isEmailInDatabase($anEmail) {
+    public function isEmailInDatabase($anEmail) {
         $theRequest = self::$_sql->prepare('SELECT COUNT(*) FROM users WHERE email = :email');
         $theRequest->bindValue(':email', $anEmail, PDO::PARAM_STR);
         $theRequest->execute();
@@ -55,7 +78,7 @@ class DAO {
         return !($result[0] == 0);
     }
 
-    function isUsernameInDatabase($anUsername) {
+    public function isUsernameInDatabase($anUsername) {
         $theRequest = self::$_sql->prepare('SELECT COUNT(*) FROM users WHERE login = :login');
         $theRequest->bindValue(':login', $anUsername, PDO::PARAM_STR);
         $theRequest->execute();
@@ -64,7 +87,7 @@ class DAO {
         return !($result[0] == 0);
     }
     
-    function isIDinDatabase($anUserID) {
+    public function isIDinDatabase($anUserID) {
         $theRequest = self::$_sql->prepare('SELECT COUNT(*) FROM users WHERE id = :id');
         $theRequest->bindValue(':id', $anUserID, PDO::PARAM_INT);
         $theRequest->execute();
@@ -73,7 +96,7 @@ class DAO {
         return !($result[0] == 0);
     }
     
-    function deleteUserVerification($anUserID) {
+    public function deleteUserVerification($anUserID) {
         $theRequest = self::$_sql->prepare("DELETE FROM user_validation WHERE id_user = :id_user");
         $theRequest->bindValue(':id_user', $anUserID, PDO::PARAM_INT);
         $theRequest->execute();
@@ -82,7 +105,7 @@ class DAO {
         return $count;
 	}
     
-    function getAllStoragePlans() {
+    public function getAllStoragePlans() {
         $theRequest = self::$_sql->prepare("SELECT * FROM storage_plans");
         $theRequest->execute();
         $result = $theRequest->fetchAll();
@@ -90,13 +113,13 @@ class DAO {
         return $result;
     }
     
-    function deleteStoragePlan($planID) {
+    public function deleteStoragePlan($planID) {
         $theRequest = self::$_sql->prepare("DELETE FROM storage_plans WHERE id = :id");
         $theRequest->bindValue(':id', $planID, PDO::PARAM_INT);
         $theRequest->execute();
     }
     
-    function getStoragePlan($planID) {
+    public function getStoragePlan($planID) {
         $theRequest = self::$_sql->prepare("SELECT * FROM storage_plans WHERE id = :id");
         $theRequest->bindValue(':id', $planID, PDO::PARAM_INT);
         $theRequest->execute();
@@ -109,7 +132,7 @@ class DAO {
         }
     }
     
-    function isProductIDAlradyInDatabase($productID) {
+    public function isProductIDAlradyInDatabase($productID) {
         $theRequest = self::$_sql->prepare('SELECT COUNT(*) FROM storage_plans WHERE product_id = :product_id');
         $theRequest->bindValue(':product_id', $productID, PDO::PARAM_INT);
         $theRequest->execute();
@@ -118,7 +141,7 @@ class DAO {
         return !($result[0] == 0); 
     }
     
-    function isEditProductID($aID, $productID) {
+    public function isEditProductID($aID, $productID) {
         $theRequest = self::$_sql->prepare('SELECT COUNT(*) FROM storage_plans WHERE product_id = :product_id AND id != :id');
         $theRequest->bindValue(':product_id', $productID, PDO::PARAM_INT);
         $theRequest->bindValue(':id', $aID, PDO::PARAM_INT);
@@ -128,7 +151,7 @@ class DAO {
         return !($result[0] == 0); 
     }
     
-    function isProductAlradyInDatabase($aID) {
+    public function isProductAlradyInDatabase($aID) {
         $theRequest = self::$_sql->prepare('SELECT COUNT(*) FROM storage_plans WHERE id = :id');
         $theRequest->bindValue(':id', $aID, PDO::PARAM_INT);
         $theRequest->execute();
@@ -137,7 +160,7 @@ class DAO {
         return !($result[0] == 0); 
     }
     
-    function addStoragePlan($aSize, $aPrice, $aDuration, $aProductID) {
+    public function addStoragePlan($aSize, $aPrice, $aDuration, $aProductID) {
         $theRequest = self::$_sql->prepare('INSERT INTO storage_plans(size, price, currency, duration, product_id) VALUES(:size, :price, :currency, :duration, :product_id)');
         $theRequest->bindValue(':size', $aSize, PDO::PARAM_INT);
         $theRequest->bindValue(':price', $aPrice, PDO::PARAM_INT);
@@ -147,7 +170,7 @@ class DAO {
         $theRequest->execute();
     }
     
-    function modifyStoragePlan($aID, $aSize, $aPrice, $aDuration, $aProductID) {
+    public function modifyStoragePlan($aID, $aSize, $aPrice, $aDuration, $aProductID) {
         $theRequest = self::$_sql->prepare('UPDATE storage_plans SET size = :size, price = :price, duration = :duration, product_id = :product_id WHERE id = :id');
         $theRequest->bindValue(':size', $aSize, PDO::PARAM_INT);
         $theRequest->bindValue(':price', $aPrice, PDO::PARAM_INT);

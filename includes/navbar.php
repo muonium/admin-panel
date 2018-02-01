@@ -1,6 +1,7 @@
 <nav>
     <ul>
         <li><a href="./index.php">AdminPanel</a></li>
+        <li><a href="./userDetails.php">User's details</a></li>
         <li><a href="./plansManagement.php">Plans management</a></li>
         <li><a href="./runCron.php">Run crons</a></li>
         <li><a href="./deployNewVersion.php">Deploy new version</a></li>
