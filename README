@@ -1,7 +1,9 @@
 Setup
 -----
 
-go to core/, then create cron, enter cron and clone it there, such as:
+It is recommended to use deploy.sh from infra-scripts for automating the deployment.
+
+Otherwise, go to core/, then create cron, enter cron and clone it there, such as:
 
 
 - core/
