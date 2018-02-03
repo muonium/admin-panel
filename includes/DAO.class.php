@@ -14,6 +14,42 @@ class DAO {
         self::$_sql = new \PDO('mysql:host='.conf\confDB::host.';dbname='.conf\confDB::db,conf\confDB::user,conf\confDB::password);
     }
     
+    public function isUsernameInJSON($anUsername) {
+        $protectedAccounts = file_get_contents("./accountsProtected.json");
+        $accounts = json_decode($protectedAccounts, true);
+
+        foreach($accounts as $value) {
+            if($value['login'] == $anUsername) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public function isIDinJSON($anID) {
+        $protectedAccounts = file_get_contents("./accountsProtected.json");
+        $accounts = json_decode($protectedAccounts, true);
+
+        foreach($accounts as $value) {
+            if($value['id'] == $anID) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public function isEmailInJSON($anEmail) {
+        $protectedAccounts = file_get_contents("./accountsProtected.json");
+        $accounts = json_decode($protectedAccounts, true);
+
+        foreach($accounts as $value) {
+            if($value['email'] == $anEmail) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public function isValidated($anUserID) {
         $theRequest = self::$_sql->prepare('SELECT COUNT(*) FROM user_validation WHERE id_user = :id_user');
         $theRequest->bindValue(':id_user', $anUserID, PDO::PARAM_INT);

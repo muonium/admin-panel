@@ -1,8 +1,10 @@
 <?php
 
 include_once("../runDeleteUser.php");
+include_once("./includes/DAO.class.php");
 
 $cron = new cronDeleteUser();
+$DAO = new DAO();
 
 if(!empty($_POST)) {
     ob_start();
@@ -10,17 +12,32 @@ if(!empty($_POST)) {
     switch($_POST['typeOfDelete']) {
             case "id":
                 if(is_numeric($_POST['textValue'])) {
-                    $cron->deleteByID($_POST['textValue']); 
+                    if(!$DAO->isIDinJSON($_POST['textValue'])) {
+                        $cron->deleteByID($_POST['textValue']); 
+                    } else {
+                        $error = true;
+                        $result = "Error : User is protected";
+                    }
                 } else {
                     $error = true;
-                    $result = "ID specified isn't an integer";
+                    $result = "ID specified isn't an integer.";
                 }
                 break;
             case "email":
-                $cron->deleteByEmail($_POST['textValue']);
+                if(!$DAO->isEmailInJSON($_POST['textValue'])) {
+                    $cron->deleteByEmail($_POST['textValue']);
+                } else {
+                    $error = true;
+                    $result = "Error : User is protected";
+                }
                 break;
             case "username":
-                $cron->deleteByUsername($_POST['textValue']);
+                if(!$DAO->isUsernameInJSON($_POST['textValue'])) {
+                    $cron->deleteByUsername($_POST['textValue']);
+                } else {
+                    $error = true;
+                    $result = "Error : User is protected";
+                }
                 break;
             default:
                 $error = true;
