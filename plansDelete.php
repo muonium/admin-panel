@@ -1,5 +1,5 @@
 <?php
-define('ROOT', dirname(__DIR__, 2));
+define('ROOT', dirname(dirname(__DIR__)));
 
 require_once("./includes/DAO.class.php");
 

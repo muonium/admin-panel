@@ -67,7 +67,7 @@ class DAO {
     }
     
     public function getFreeSpaceRemaining() {
-        $dir = dirname(__DIR__, 4).'/nova';
+        $dir = dirname(dirname(dirname(dirname(__DIR__)))).'/nova';
         $freeSpaceRemaining = disk_free_space($dir);
         return $freeSpaceRemaining;
     }
