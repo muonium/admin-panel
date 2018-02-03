@@ -77,7 +77,7 @@ if(!empty($_POST)) {
                         echo 'Registration date : '.date('d/m/Y H:i:s', $infos['registration_date']).'<br/>';
                         echo 'Last connection : '.date('d/m/Y H:i:s', $infos['last_connection']).'<br/>';
                         
-                        echo 'Actual Storage : '.($DAO->getStorage($infos['id'])/1000000) .' MB ';
+                        echo 'Current Storage : '.($DAO->getStorage($infos['id'])/1000000) .' MB ';
                         echo '<a href="./changeUserStorage.php?id='.$infos['id'].'">Change</a><br/>';
                     }
                     else {
