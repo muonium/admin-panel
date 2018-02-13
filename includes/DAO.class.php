@@ -14,6 +14,10 @@ class DAO {
         self::$_sql = new \PDO('mysql:host='.conf\confDB::host.';dbname='.conf\confDB::db,conf\confDB::user,conf\confDB::password);
     }
     
+    public function getDb() {
+        return self::$_sql;
+    }
+    
     public function isUsernameInJSON($anUsername) {
         $protectedAccounts = file_get_contents("./accountsProtected.json");
         $accounts = json_decode($protectedAccounts, true);

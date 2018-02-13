@@ -85,7 +85,7 @@ table > tbody > tr > td > a {
 }
 
 /*Form*/
-form > fieldset > div {
+fieldset > div {
     padding: 10px;
 }
 
