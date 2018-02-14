@@ -2,18 +2,18 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Admin Panel - Add member</title>
+    <title>Admin Panel - Add user</title>
     <link href="./assets/css/css.css" rel="stylesheet">
 </head>
 
 <body>
     <?php include("./includes/navbar.php"); ?>
     <header>
-        <h1>Add member</h1>
+        <h1>Add user</h1>
     </header>
     <div>
             <fieldset>
-                <legend>Add member</legend>
+                <legend>Add user</legend>
                 <div>
                     <label for="field_mail">Mail</label>  
                     <div>
@@ -54,7 +54,7 @@
         </div>
     </div>
     <?php include("./includes/footer.php"); ?>
-    <script src="./assets/js/addAccount.js"></script>
+    <script src="./assets/js/addUser.js"></script>
     <script src="./assets/js/sjcl.js"></script>
     <script src="./assets/js/base64.js"></script>
     <script src="./assets/js/sha512.js"></script>

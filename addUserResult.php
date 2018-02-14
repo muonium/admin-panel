@@ -1,6 +1,6 @@
 <?php
 if(empty($_POST)) {
-    header('Location: ./addMember.php');
+    header('Location: ./addUser.php');
     exit();
 }
 define('ROOT', dirname(dirname(__DIR__)));
@@ -51,7 +51,7 @@ if(filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL)) {
                 
                                     
                 mkdir(NOVA.'/'.$id_user, 0770);
-                echo "ok@".htmlentities("Success");
+                echo "ok@".htmlentities("User successfully created");
             }
             else {
                 // "loginExists" response
