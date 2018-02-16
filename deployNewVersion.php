@@ -1,6 +1,7 @@
 <?php
 if(!empty($_POST)) {
-    $output = shell_exec(dirname(__DIR__) . '/deploy.sh --release 2>&1');
+    $branch = $_POST['branch'];
+    $output = shell_exec(dirname(__DIR__) . '/deploy.sh --release "'.$branch.'" 2>&1');
     $error = $output;
     $message = "New version deployed.";
 }
@@ -36,6 +37,12 @@ if(!empty($_POST)) {
         <form action="./deployNewVersion.php" method="post">
             <fieldset>
                 <legend>Deploy new version</legend>
+                <div>
+                    <label for="branch">Branch</label>  
+                    <div>
+                        <input id="branch" name="branch" type="text" placeholder="Branch">
+                    </div>
+                </div>
                 <div>
                     <button type="submit" id="deployButton" name="deployButton">Deploy</button>
                     <a href="/panel">Get back to the panel</a>
