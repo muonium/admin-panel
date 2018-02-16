@@ -1,8 +1,12 @@
 <?php
 if(!empty($_POST)) {
-    $output = shell_exec(dirname(__DIR__) . '/deploy.sh --panel 2>&1');
+    $branch = $_POST['branch'];
+    if($branch == "") {
+        $branch = "master";
+    }
+    $output = shell_exec(dirname(__DIR__) . '/deploy.sh --panel "'.$branch.'" 2>&1');
     $error = $output;
-    $message = "New version of admin panel deployed.";
+    $message = "New version of admin panel deployed. (branch : $branch)";
 }
 ?>
 <!DOCTYPE html>
@@ -36,6 +40,12 @@ if(!empty($_POST)) {
         <form action="./updatePanel.php" method="post">
             <fieldset>
                 <legend>Update Admin panel</legend>
+                <div>
+                    <label for="branch">Branch</label>  
+                    <div>
+                        <input id="branch" name="branch" type="text" placeholder="Branch">
+                    </div>
+                </div>
                 <div>
                     <button type="submit" id="updatePanelButton" name="updatePanelButton">Update</button>
 					<a href="/panel">Get back to the panel</a>
