@@ -1,12 +1,9 @@
 <?php
 if(!empty($_POST)) {
     $branch = $_POST['branch'];
-    if($branch == "") {
-        $branch = "master";
-    }
     $output = shell_exec(dirname(__DIR__) . '/deploy.sh --panel "'.$branch.'" 2>&1');
     $error = $output;
-    $message = "New version of admin panel deployed. (branch : $branch)";
+    $message = "New version of admin panel deployed.";
 }
 ?>
 <!DOCTYPE html>
