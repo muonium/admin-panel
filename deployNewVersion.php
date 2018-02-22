@@ -38,7 +38,7 @@ if(!empty($_POST)) {
             <fieldset>
                 <legend>Deploy new version</legend>
                 <div>
-                    <label for="branch">Branch</label>  
+                    <label for="branch">Branch</label>
                     <div>
                         <input id="branch" name="branch" type="text" placeholder="Branch">
                     </div>
@@ -49,6 +49,12 @@ if(!empty($_POST)) {
                 </div>
             </fieldset>
         </form>
+        <fieldset>
+            <legend>Rollback version</legend>
+            <div>
+                <a href="./rollbackVersion.php">Rollback</a>
+            </div>
+        </fieldset>
     </div>
     <?php include("./includes/footer.php"); ?>
 </body>

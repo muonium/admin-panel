@@ -38,17 +38,23 @@ if(!empty($_POST)) {
             <fieldset>
                 <legend>Update Admin panel</legend>
                 <div>
-                    <label for="branch">Branch</label>  
+                    <label for="branch">Branch</label>
                     <div>
                         <input id="branch" name="branch" type="text" placeholder="Branch">
                     </div>
                 </div>
                 <div>
                     <button type="submit" id="updatePanelButton" name="updatePanelButton">Update</button>
-					<a href="/panel">Get back to the panel</a>
+					          <a href="/panel">Get back to the panel</a>
                 </div>
             </fieldset>
         </form>
+        <fieldset>
+            <legend>Rollback admin panel</legend>
+            <div>
+                <a href="./rollbackPanel.php">Rollback</a>
+            </div>
+        </fieldset>
     </div>
     <?php include("./includes/footer.php"); ?>
 </body>
