@@ -2,15 +2,24 @@
 
 if(!empty($_POST)) {
     $message = "";
+	if(isset($_POST["cronEveryHour"])) {
+        if(file_exists(dirname(__DIR__).'/runEveryHour.php')) {
+            require_once(dirname(__DIR__).'/runEveryHour.php');
+            $message .= "cron runEveryHour executed.<br/>";
+        } else {
+            $message .= 'Couldn\'t find runEveryHour.php file.<br/>';
+        }
+    }
+
     if(isset($_POST["cronEveryDay"])) {
         if(file_exists(dirname(__DIR__).'/runEveryDay.php')) {
             require_once(dirname(__DIR__).'/runEveryDay.php');
-            $message .= "cron runEveryDay executed.<br/>"; 
+            $message .= "cron runEveryDay executed.<br/>";
         } else {
             $message .= 'Couldn\'t find runEveryDay.php file.<br/>';
         }
     }
-       
+
     if(isset($_POST["cronEveryMonth"])) {
         if(file_exists(dirname(__DIR__).'/runEveryMonth.php')) {
             require_once(dirname(__DIR__).'/runEveryMonth.php');
@@ -40,7 +49,7 @@ if(!empty($_POST)) {
         <div>
             <?php
                 if(isset($message)) {
-                    echo $message."<br/>"; 
+                    echo $message."<br/>";
                 }
             ?>
         </div>
@@ -50,6 +59,10 @@ if(!empty($_POST)) {
                 <div>
                     <label>Which crons would you like to run ?</label>
                     <div>
+						<label for="cronEveryHour">
+                            <input type="checkbox" name="cronEveryHour" id="cronEveryHour" value="cronEveryHour">
+                            runEveryHour
+                        </label>
                         <label for="cronEveryDay">
                             <input type="checkbox" name="cronEveryDay" id="cronEveryDay" value="cronEveryDay">
                             runEveryDay
