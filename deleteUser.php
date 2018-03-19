@@ -1,43 +1,57 @@
 <?php
-define('ROOT', dirname(dirname(__DIR__)));
 
-require_once("./includes/DAO.class.php");
+include_once("../runDeleteUser.php");
+include_once("./includes/DAO.class.php");
 
+$cron = new cronDeleteUser();
 $DAO = new DAO();
 
 if(!empty($_POST)) {
+    ob_start();
     $error = false;
-    switch($_POST['typeOfSearch']) {
+    switch($_POST['typeOfDelete']) {
             case "id":
                 if(is_numeric($_POST['textValue'])) {
-                    $infos = $DAO->getInfos($_POST['textValue']); 
-                    if(!$infos) {
+                    if(!$DAO->isIDinJSON($_POST['textValue'])) {
+                        $cron->deleteByID($_POST['textValue']); 
+                    } else {
                         $error = true;
-                        $errorMessage = "No user found with this ID.";
+                        $result = "Error : User is protected";
                     }
                 } else {
                     $error = true;
-                    $errorMessage = "ID specified isn't an integer.";
+                    $result = "ID specified isn't an integer.";
                 }
                 break;
             case "email":
-                $infos = $DAO->getInfos($DAO->getIDfromEmail($_POST['textValue']));
-                if(!$infos) {
+                if(!$DAO->isEmailInJSON($_POST['textValue'])) {
+                    $cron->deleteByEmail($_POST['textValue']);
+                } else {
                     $error = true;
-                    $errorMessage = "No user found with this email.";
+                    $result = "Error : User is protected";
                 }
                 break;
             case "username":
-                $infos = $DAO->getInfos($DAO->getIDfromUsername($_POST['textValue']));
-                if(!$infos) {
+                if(!$DAO->isUsernameInJSON($_POST['textValue'])) {
+                    $cron->deleteByUsername($_POST['textValue']);
+                } else {
                     $error = true;
-                    $errorMessage = "No user found with this username.";
+                    $result = "Error : User is protected";
                 }
                 break;
             default:
                 $error = true;
-                $errorMessage = "Unknow value of search type."; 
+                $result = "Unknow value of delete type"; 
                 break;
+    }
+    $trashOutput = ob_get_clean();
+    $isHere = strpos($trashOutput, "User not found in database.\n");
+    if($isHere === false) {
+        if(!$error) {
+            $result = "User successfully deleted.";
+        }
+    } else {
+        $result = "User not found in database.";
     }
 }
 
@@ -48,7 +62,7 @@ if(!empty($_POST)) {
     <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-    <title>Admin Panel - User's details</title>
+    <title>Admin Panel - Delete user</title>
     <link id="style" href="./assets/css/dark.css" rel="stylesheet">
 </head>
 <body>
@@ -78,57 +92,33 @@ if(!empty($_POST)) {
             <section>
                 <div>
                     <?php
-                        echo '<br/>';
-                        if(isset($infos)) {
-                            if($infos != false) {
-
-                                $isValidated = $DAO->isValidated($infos['id']);
-
-                                if($isValidated) {
-                                    echo 'Validated.<br/>';
-                                } else {
-                                    echo 'Not validated.<br/>';
-                                }
-
-                                echo 'ID : '.$infos['id'].'<br/>';
-                                echo 'Username : '.$infos['login'].'<br/>';
-                                echo 'Email : '.$infos['email'].'<br/>';
-                                echo 'Registration date : '.date('d/m/Y H:i:s', $infos['registration_date']).'<br/>';
-                                echo 'Last connection : '.date('d/m/Y H:i:s', $infos['last_connection']).'<br/>';
-
-                                echo 'Current Storage : '.($DAO->getStorage($infos['id'])/1000000) .' MB ';
-                                echo '<a href="./changeUserStorage.php?id='.$infos['id'].'">Change</a><br/>';
-                            }
-                            else {
-                                echo $errorMessage;
-                            }
+                        if(isset($result)) {
+                            echo $result; 
                         }
                     ?>
-                    <br/>
-                    <br/>
                 </div>
-                <form action="./userDetails.php" method="post">
+                <br/>
+                <form action="./deleteUser.php" method="post">
                     <fieldset>
-                        <legend>User's Details</legend>
+                        <legend>Delete member</legend>
                         <div>
-                            <label>Search by :</label>
+                            <label>Delete by :</label>
                             <br/>
                             <br/>
                             <div>
-                                <input type="radio" name="typeOfSearch" id="searchByID" value="id" checked="checked">
+                                <input type="radio" name="typeOfDelete" id="deleteByID" value="id" checked="checked">
                                 <label for="deleteByID">ID</label>
                                 <br/>
-                                <input type="radio" name="typeOfSearch" id="searchByEmail" value="email">
+                                <input type="radio" name="typeOfDelete" id="deleteByEmail" value="email">
                                 <label for="deleteByEmail">E-mail</label>
                                 <br/>
-                                <input type="radio" name="typeOfSearch" id="searchByUsername" value="username">
+                                <input type="radio" name="typeOfDelete" id="deleteByUsername" value="username">
                                 <label for="deleteByUsername">Username</label>
                             </div>
+                            <br/>
                         </div>
-                        <br/>
                         <input id="textValue" name="textValue" type="text" placeholder="ID, email or username" required>
-                        <br/>
-                        <button type="submit" id="submitButton" name="submitButton">Search</button>
+                        <button type="submit" id="submitButton" name="submitButton">Submit</button>
                         <button type="reset" id="cancelButton" name="cancelButton">Cancel</button>
                     </fieldset>
                 </form>

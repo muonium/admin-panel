@@ -8,48 +8,78 @@ if(!empty($_POST)) {
 ?>
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <title>Admin Panel - Deploy new version</title>
-    <link href="./assets/css/css.css" rel="stylesheet">
+    <link id="style" href="./assets/css/dark.css" rel="stylesheet">
 </head>
-
 <body>
-    <?php include("./includes/navbar.php"); ?>
     <header>
-        <h1>Deploy new version</h1>
-    </header>
-    <div>
-        <div>
-            <?php
-                echo '<br/>';
-                if(isset($error)) {
-                    echo $error;
-                } else {
-                   if(isset($message)) {
-                        echo $message;
-                   }
-                }
-            ?>
-            <br/>
-            <br/>
+        <div id="logo">
+            <a href="./index.html"><img src="./assets/img/logos/logo.png" title="Accueil" alt="Accueil"></a>
         </div>
-        <form action="./deployNewVersion.php" method="post">
-            <fieldset>
-                <legend>Deploy new version</legend>
+        <div class="iconRight">
+            <a id="switchDesign" title="Design"><i id="designLogo" class="far fa-lightbulb fa-2x"></i></a>
+            <a href="https://github.com/muonium/core" class="github" title="GitHub"><i class="fab fa-github fa-2x"></i></a>
+        </div>
+    </header>
+    <div id="main">
+        <div class="sidebar">
+            <ul>
+                <li><a href="./index.php"><i class="fas fa-home fa-2x"></i></a><span>Admin panel</span></li>
+                <li><a href="./runCron.php"><i class="fas fa-play fa-2x"></i></a><span>Run cron</span></li>
+                <li><a href="./stats.php"><i class="fas fa-chart-bar fa-2x"></i></a><span>Stats</span></li>
+                <li><a href="./addUser.php"><i class="fas fa-user-plus fa-2x"></i></a><span>Add user</span></li>
+                <li><a href="./plansManagement.php"><i class="fas fa-edit fa-2x"></i></a><span>Plans management</span></li>
+                <li><a href="./deployNewVersion.php"><i class="fas fa-plus fa-2x"></i></a><span>Deploy new version</span></li>
+                <li><a href="./deleteUser.php"><i class="fas fa-user-times fa-2x"></i></a><span>Delete user</span></li>
+                <li><a href="./userDetails.php"><i class="fas fa-address-card fa-2x"></i></a><span>User details</span></li>
+            </ul>
+        </div>
+        <div class="container-max">
+            <section>
                 <div>
-                    <label for="branch">Branch</label>  
-                    <div>
-                        <input id="branch" name="branch" type="text" placeholder="Branch">
-                    </div>
+                    <?php
+                        echo '<br/>';
+                        if(isset($error)) {
+                            echo $error;
+                        } else {
+                           if(isset($message)) {
+                                echo $message;
+                           }
+                        }
+                    ?>
+                    <br/>
+                    <br/>
                 </div>
-                <div>
-                    <button type="submit" id="deployButton" name="deployButton">Deploy</button>
-                    <a href="/panel">Get back to the panel</a>
-                </div>
-            </fieldset>
-        </form>
+                <form action="./deployNewVersion.php" method="post">
+                    <fieldset>
+                        <legend>Deploy new version</legend> 
+                            <div>
+                                <input id="branch" name="branch" type="text" placeholder="Branch">
+                            </div>
+                            <br/>
+                            <button type="submit" id="deployButton" name="deployButton">Deploy</button>
+                            <br/>
+                            <br/>
+                            <a href="/panel">Get back to the panel</a>
+                    </fieldset>
+                </form>
+            </section>
+        </div>
     </div>
-    <?php include("./includes/footer.php"); ?>
+    <footer>
+        <ul>
+            <li>Muonium</li>
+        </ul>
+        <ul>
+           <li><a href="./updatePanel.php">Update Panel</a></li>
+        </ul>
+    </footer>
+    <script src="./assets/js/jQuery.min.js"></script>
+    <script src="./assets/js/jsCookies.js"></script>
+    <script src="./assets/js/fontAwesome.js"></script>
+    <script src="./assets/js/switchDesign.js"></script>
 </body>
 </html>

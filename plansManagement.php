@@ -9,56 +9,89 @@ $plans = $DAO->getAllStoragePlans();
 ?>
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
     <meta charset="utf-8" />
-    <title>Admin Panel - Plans management</title>
-    <link href="./assets/css/css.css" rel="stylesheet">
-    <link href="../../public/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>Admin Panel - Plans managements</title>
+    <link id="style" href="./assets/css/dark.css" rel="stylesheet">
 </head>
-
 <body>
-    <?php include("./includes/navbar.php"); ?>
     <header>
-        <h1>Plans management</h1>
+        <div id="logo">
+            <a href="./index.html"><img src="./assets/img/logos/logo.png" title="Accueil" alt="Accueil"></a>
+        </div>
+        <div class="iconRight">
+            <a id="switchDesign" title="Design"><i id="designLogo" class="far fa-lightbulb fa-2x"></i></a>
+            <a href="https://github.com/muonium/core" class="github" title="GitHub"><i class="fab fa-github fa-2x"></i></a>
+        </div>
     </header>
-    <div>
-        <fieldset>
-            <legend>Plans management</legend>
-            <div>
-                <table>
-                    <thead>
-                        <th>ID</th>
-                        <th>Size (GB)</th>
-                        <th>Price</th>
-                        <th>Currency</th>
-                        <th>Duration (Months)</th>
-                        <th>Product_ID</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach($plans as $plan) {
-                            echo '<tr>';
-                            echo '<td>'.$plan['id'].'</td>';
-                            echo '<td>'.($plan['size']/1000000000).'</td>';
-                            echo '<td>'.$plan['price'].'</td>';
-                            echo '<td>'.$plan['currency'].'</td>';
-                            echo '<td>'.$plan['duration'].'</td>';
-                            echo '<td>'.$plan['product_id'].'</td>';
-                            echo '<td><a href="./plansEdit.php?id='.$plan['id'].'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a></td>';
-                            echo '<td><a href="./plansDelete.php?id='.$plan['id'].'"><i class="fa fa-times" aria-hidden="true"></i>Delete</a></td>';
-                            echo '</tr>';
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-        </fieldset>
-        <div class="addNewPlanLink">
-            <a href="./plansAdd.php"><i class="fa fa-plus" aria-hidden="true"></i> Add a new storage plan</a>
+    <div id="main">
+        <div class="sidebar">
+            <ul>
+                <li><a href="./index.php"><i class="fas fa-home fa-2x"></i></a><span>Admin panel</span></li>
+                <li><a href="./runCron.php"><i class="fas fa-play fa-2x"></i></a><span>Run cron</span></li>
+                <li><a href="./stats.php"><i class="fas fa-chart-bar fa-2x"></i></a><span>Stats</span></li>
+                <li><a href="./addUser.php"><i class="fas fa-user-plus fa-2x"></i></a><span>Add user</span></li>
+                <li><a href="./plansManagement.php"><i class="fas fa-edit fa-2x"></i></a><span>Plans management</span></li>
+                <li><a href="./deployNewVersion.php"><i class="fas fa-plus fa-2x"></i></a><span>Deploy new version</span></li>
+                <li><a href="./deleteUser.php"><i class="fas fa-user-times fa-2x"></i></a><span>Delete user</span></li>
+                <li><a href="./userDetails.php"><i class="fas fa-address-card fa-2x"></i></a><span>User details</span></li>
+            </ul>
+        </div>
+        <div class="container-max">
+            <section>
+                <div>
+                    <fieldset>
+                        <legend>Plans management</legend>
+                        <div>
+                            <table>
+                                <thead>
+                                    <th>ID</th>
+                                    <th>Size (GB)</th>
+                                    <th>Price</th>
+                                    <th>Currency</th>
+                                    <th>Duration (Months)</th>
+                                    <th>Product_ID</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach($plans as $plan) {
+                                        echo '<tr>';
+                                        echo '<td>'.$plan['id'].'</td>';
+                                        echo '<td>'.($plan['size']/1000000000).'</td>';
+                                        echo '<td>'.$plan['price'].'</td>';
+                                        echo '<td>'.$plan['currency'].'</td>';
+                                        echo '<td>'.$plan['duration'].'</td>';
+                                        echo '<td>'.$plan['product_id'].'</td>';
+                                        echo '<td><a href="./plansEdit.php?id='.$plan['id'].'"><i class="fas fa-edit"></i></i>Edit</a></td>';
+                                        echo '<td><a href="./plansDelete.php?id='.$plan['id'].'"><i class="fa fa-times" aria-hidden="true"></i>Delete</a></td>';
+                                        echo '</tr>';
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+                    <div class="addNewPlanLink">
+                        <a href="./plansAdd.php"><i class="fa fa-plus" aria-hidden="true"></i> Add a new storage plan</a>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
-    <?php include("./includes/footer.php"); ?>
+    <footer>
+        <ul>
+            <li>Muonium</li>
+        </ul>
+        <ul>
+           <li><a href="./updatePanel.php">Update Panel</a></li>
+        </ul>
+    </footer>
+    <script src="./assets/js/jQuery.min.js"></script>
+    <script src="./assets/js/jsCookies.js"></script>
+    <script src="./assets/js/fontAwesome.js"></script>
+    <script src="./assets/js/switchDesign.js"></script>
 </body>
 </html>
