@@ -1,5 +1,19 @@
 <?php
 
+session_start();
+
+if(empty($_SESSION["design"])) {
+    $_SESSION["design"] = "dark";
+}
+
+if(empty($_SESSION["connected"])) {
+    $_SESSION["connected"] = false;
+    $_SESSION["rank"] = null;
+}
+if(!$_SESSION["connected"]) {
+    header('Location: ./login.php');
+}
+
 include_once("../runDeleteUser.php");
 include_once("./includes/DAO.class.php");
 
@@ -55,60 +69,57 @@ if(!empty($_POST)) {
 ?>
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <title>Admin Panel - Delete user validation</title>
-    <link href="./assets/css/css.css" rel="stylesheet">
+    <link id="style" href="./assets/css/<?php echo $_SESSION["design"]; ?>.css" rel="stylesheet">
 </head>
-
 <body>
-    <?php include("./includes/navbar.php"); ?>
-    <header>
-        <h1>Delete user validation</h1>
-    </header>
-    <div>
-        <div>
-            <?php
-                if(isset($message)) {
-                    echo $message; 
-                }
-            ?>
-        </div>
-        <form action="./deleteValidation.php" method="post">
-            <fieldset>
-                <legend>Delete user validation</legend>
+    <?php include('./includes/header.php'); ?>
+    <div id="main">
+        <?php include('./includes/navbar.php'); ?>
+        <div class="container-max">
+            <section>
                 <div>
-                    <label>Delete by</label>
-                    <div>
-                        <label for="deleteByID">
-                            <input type="radio" name="typeOfDelete" id="deleteByID" value="id" checked="checked">
-                            ID
-                        </label>
-                        <label for="deleteByEmail">
-                            <input type="radio" name="typeOfDelete" id="deleteByEmail" value="email">
-                            E-mail
-                        </label>
-                        <label for="deleteByUsername">
-                            <input type="radio" name="typeOfDelete" id="deleteByUsername" value="username">
-                            Username
-                        </label>
-                    </div>
+                    <?php
+                        if(isset($message)) {
+                            echo '<div class="userDetails">';
+                            echo $message;
+                            echo '</div>'; 
+                        }
+                    ?>
                 </div>
-                
-                <div>
-                    <label for=textValue>Value</label>  
-                    <div>
+                <br/>
+                <form action="./deleteValidation.php" method="post">
+                    <fieldset>
+                        <legend>Delete user validation</legend>
+                        <div>
+                            <label>Delete by :</label>
+                            <br/>
+                            <br/>
+                            <div>
+                                <input type="radio" name="typeOfDelete" id="deleteByID" value="id" checked="checked">
+                                <label for="deleteByID">ID</label>
+                                <br/>
+                                <input type="radio" name="typeOfDelete" id="deleteByEmail" value="email">
+                                <label for="deleteByEmail">E-mail</label>
+                                <br/>
+                                <input type="radio" name="typeOfDelete" id="deleteByUsername" value="username">
+                                <label for="deleteByUsername">Username</label>
+                            </div>
+                            <br/>
+                        </div>
                         <input id="textValue" name="textValue" type="text" placeholder="ID, email or username" required>
-                    </div>
-                </div>
-
-                <div>
-                    <button type="submit" id="submitButton" name="submitButton">Submit</button>
-                    <button type="reset" id="cancelButton" name="cancelButton">Cancel</button>
-                </div>
-            </fieldset>
-        </form>
+                        <button type="submit" id="submitButton" name="submitButton">Submit</button>
+                        <button type="reset" id="cancelButton" name="cancelButton">Cancel</button>
+                    </fieldset>
+                </form>
+            </section>
+        </div>
     </div>
-    <?php include("./includes/footer.php"); ?>
+    <?php include('./includes/footer.php'); ?>
+    <script src="./assets/js/jQuery.min.js"></script>
+    <script src="./assets/js/fontAwesome.js"></script>
 </body>
 </html>
