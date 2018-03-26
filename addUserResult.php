@@ -1,8 +1,17 @@
 <?php
+session_start();
 if(empty($_POST)) {
-    header('Location: ./addUser.php');
     exit();
 }
+
+if(empty($_SESSION["connected"])) {
+    exit();
+} else {
+    if(!$_SESSION["connected"]) {
+        exit();
+    }
+}
+
 define('ROOT', dirname(dirname(__DIR__)));
 define('NOVA', dirname(dirname(dirname(__DIR__))).'/nova/');
 include("./includes/DAO.class.php");

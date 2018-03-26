@@ -79,6 +79,8 @@ if(!empty($_POST)) {
                 </form>
                 <br/>
                 <a href="./editAdmin.php" title="Edit existing admin">Edit existing admin</a>
+                <br/>
+                <a href="./deleteAdmin.php" title="Delete existing admin">Delete existing admin</a>
             </section>
         </div>
     </div>
