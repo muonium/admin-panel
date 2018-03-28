@@ -22,15 +22,15 @@ if(!empty($_POST)) {
     if(strpos($_POST["field_login"], ':') === false) {
         if($_POST["field_pass"] == $_POST["field_passconfirm"]) {
             if($_POST["field_rank"] == "master" || $_POST["field_rank"] == "admin" ) {
-                $accountExist = false;
+                $accountExists = false;
                 $accounts = file('./includes/logins');
                 foreach($accounts as $line) {
                     $details = explode(':', $line);
                     if($details[0] == $_POST["field_login"]) {
-                        $accountExist = true;
+                        $accountExists = true;
                     }
                 }
-                if(!$accountExist) {
+                if(!$accountExists) {
                     $accountToAdd = $_POST["field_login"] . ":" . password_hash($_POST["field_pass"], PASSWORD_DEFAULT) . ":" . $_POST["field_rank"] . PHP_EOL;
                     file_put_contents('./includes/logins', $accountToAdd, FILE_APPEND);
                     $errorMessage .= "Account successfully created.<br/>";
