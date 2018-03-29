@@ -20,16 +20,19 @@ if(!$_SESSION["connected"]) {
 if(!empty($_POST)) {
     $message = "";
     if(!($_SESSION['login'] == $_POST["field_login"])) {
-        $accountExist = false;
+        $accountExists = false;
         $accounts = file('./includes/logins');
         $newFile = "";
         foreach($accounts as $line) {
             $details = explode(':', $line);
 
             if($details[0] == $_POST["field_login"]) {
-                $accountExist = true;
+                $accountExists = true;
                 $accountLogin = $details[0];
                 $accountPass = $details[1];
+                if($_POST["field_password"] != "") {
+                    $accountPass = password_hash($_POST["field_password"], PASSWORD_DEFAULT);
+                }
 
                 $accountToAdd = $accountLogin . ":" . $accountPass . ":" . $_POST["field_rank"] . PHP_EOL;
                 $newFile .= $accountToAdd;
@@ -40,7 +43,7 @@ if(!empty($_POST)) {
         file_put_contents('./includes/logins', $newFile);
         $message .= "Account successfully edited.<br/>";
 
-        if(!$accountExist) {
+        if(!$accountExists) {
             $message .= "Account doesn't exist.<br/>";
         }
     } else {
@@ -73,6 +76,7 @@ if(!empty($_POST)) {
                     <fieldset>
                         <legend>Edit admin</legend>
                         <input id="field_login" name="field_login" type="text" placeholder="Username" required>
+                        <input id="field_password" name="field_password" type="password" placeholder="Password">
                         <select id="field_rank" name="field_rank">
                             <option value="admin" selected>Admin</option> 
                             <option value="master">Master</option>

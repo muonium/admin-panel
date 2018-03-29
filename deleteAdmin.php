@@ -19,7 +19,7 @@ if(!$_SESSION["connected"]) {
 if(!empty($_POST)) {
     $message = "";
     if(!($_SESSION['login'] == $_POST["field_login"])) {
-        $accountExist = false;
+        $accountExists = false;
         $accounts = file('./includes/logins');
         $newFile = "";
         foreach($accounts as $line) {
@@ -28,12 +28,12 @@ if(!empty($_POST)) {
             if($details[0] != $_POST["field_login"]) {
                 $newFile .= $line;
             } else {
-                $accountExist = true;
+                $accountExists = true;
             }
         }
         file_put_contents('./includes/logins', $newFile);
 
-        if(!$accountExist) {
+        if(!$accountExists) {
             $message .= "Account doesn't exist.<br/>";
         } else {
             $message .= "Account successfully deleted.<br/>";
