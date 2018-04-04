@@ -1,4 +1,19 @@
 <?php
+
+session_start();
+
+if(empty($_SESSION["design"])) {
+    $_SESSION["design"] = "dark";
+}
+
+if(empty($_SESSION["connected"])) {
+    $_SESSION["connected"] = false;
+    $_SESSION["rank"] = null;
+}
+if(!$_SESSION["connected"]) {
+    header('Location: ./login.php');
+}
+
 if(!empty($_POST)) {
     $branch = $_POST['branch'];
     $output = shell_exec(dirname(__DIR__) . '/deploy.sh --panel "'.$branch.'" 2>&1');
@@ -8,48 +23,48 @@ if(!empty($_POST)) {
 ?>
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
     <meta charset="utf-8" />
-    <title>Admin Panel - Update panel</title>
-    <link href="./assets/css/css.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>Admin Panel - Delete storage plan</title>
+    <link id="style" href="./assets/css/<?php echo $_SESSION["design"]; ?>.css" rel="stylesheet">
 </head>
-
 <body>
-    <?php include("./includes/navbar.php"); ?>
-    <header>
-        <h1>Update Admin panel</h1>
-    </header>
-    <div>
-        <div>
-            <?php
-                echo '<br/>';
-                if(isset($error)) {
-                    echo $error;
-                } else {
-                   if(isset($message)) {
-                        echo $message;
-                   }
-                }
-            ?>
-            <br/>
-            <br/>
-        </div>
-        <form action="./updatePanel.php" method="post">
-            <fieldset>
-                <legend>Update Admin panel</legend>
+    <?php include('./includes/header.php'); ?>
+    <div id="main">
+        <?php include('./includes/navbar.php'); ?>
+        <div class="container-max">
+            <section>
                 <div>
-                    <label for="branch">Branch</label>  
-                    <div>
+                    <?php
+                        echo '<br/>';
+                        if(isset($error)) {
+                            echo $error;
+                        } else {
+                           if(isset($message)) {
+                                echo $message;
+                           }
+                        }
+                    ?>
+                    <br/>
+                    <br/>
+                </div>
+                <form action="./updatePanel.php" method="post">
+                    <fieldset>
+                        <legend>Update Admin panel</legend>  
                         <input id="branch" name="branch" type="text" placeholder="Branch">
-                    </div>
-                </div>
-                <div>
-                    <button type="submit" id="updatePanelButton" name="updatePanelButton">Update</button>
-					<a href="/panel">Get back to the panel</a>
-                </div>
-            </fieldset>
-        </form>
+                        <br/>
+                        <button type="submit" id="updatePanelButton" name="updatePanelButton">Update</button>
+                        <br/>
+                        <br/>
+                        <a href="/panel">Get back to the panel</a>
+                    </fieldset>
+                </form>
+            </section>
+        </div>
     </div>
-    <?php include("./includes/footer.php"); ?>
+    <?php include('./includes/footer.php'); ?>
+    <script src="./assets/js/jQuery.min.js"></script>
+    <script src="./assets/js/fontAwesome.js"></script>
 </body>
 </html>

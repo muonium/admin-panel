@@ -1,4 +1,19 @@
 <?php
+
+session_start();
+
+if(empty($_SESSION["design"])) {
+    $_SESSION["design"] = "dark";
+}
+
+if(empty($_SESSION["connected"])) {
+    $_SESSION["connected"] = false;
+    $_SESSION["rank"] = null;
+}
+if(!$_SESSION["connected"]) {
+    header('Location: ./login.php');
+}
+
 if(!empty($_POST)) {
     $branch = $_POST['branch'];
     $output = shell_exec(dirname(__DIR__) . '/deploy.sh --release "'.$branch.'" 2>&1');
@@ -8,48 +23,54 @@ if(!empty($_POST)) {
 ?>
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <title>Admin Panel - Deploy new version</title>
-    <link href="./assets/css/css.css" rel="stylesheet">
+    <link id="style" href="./assets/css/<?php echo $_SESSION["design"]; ?>.css" rel="stylesheet">
 </head>
-
 <body>
-    <?php include("./includes/navbar.php"); ?>
-    <header>
-        <h1>Deploy new version</h1>
-    </header>
-    <div>
-        <div>
-            <?php
-                echo '<br/>';
-                if(isset($error)) {
-                    echo $error;
-                } else {
-                   if(isset($message)) {
-                        echo $message;
-                   }
-                }
-            ?>
-            <br/>
-            <br/>
+    <?php include('./includes/header.php'); ?>
+    <div id="main">
+        <?php include('./includes/navbar.php'); ?>
+        <div class="container-max">
+            <section>
+                <div>
+                    <?php
+                        echo '<br/>';
+                        if(isset($error)) {
+                            echo '<div class="userDetails">';
+                            echo $error;
+                            echo '</div>';
+                        } else {
+                           if(isset($message)) {
+                                echo '<div class="userDetails">';
+                                echo $message;
+                                echo '</div>';
+                           }
+                        }
+                    ?>
+                    <br/>
+                    <br/>
+                </div>
+                <form action="./deployNewVersion.php" method="post">
+                    <fieldset>
+                        <legend>Deploy new version</legend> 
+                            <div>
+                                <input id="branch" name="branch" type="text" placeholder="Branch">
+                            </div>
+                            <br/>
+                            <button type="submit" id="deployButton" name="deployButton">Deploy</button>
+                            <br/>
+                            <br/>
+                            <a href="/panel">Get back to the panel</a>
+                    </fieldset>
+                </form>
+            </section>
         </div>
-        <form action="./deployNewVersion.php" method="post">
-            <fieldset>
-                <legend>Deploy new version</legend>
-                <div>
-                    <label for="branch">Branch</label>  
-                    <div>
-                        <input id="branch" name="branch" type="text" placeholder="Branch">
-                    </div>
-                </div>
-                <div>
-                    <button type="submit" id="deployButton" name="deployButton">Deploy</button>
-                    <a href="/panel">Get back to the panel</a>
-                </div>
-            </fieldset>
-        </form>
     </div>
-    <?php include("./includes/footer.php"); ?>
+    <?php include('./includes/footer.php'); ?>
+    <script src="./assets/js/jQuery.min.js"></script>
+    <script src="./assets/js/fontAwesome.js"></script>
 </body>
 </html>

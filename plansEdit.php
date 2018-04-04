@@ -1,4 +1,18 @@
 <?php
+session_start();
+
+if(empty($_SESSION["design"])) {
+    $_SESSION["design"] = "dark";
+}
+
+if(empty($_SESSION["connected"])) {
+    $_SESSION["connected"] = false;
+    $_SESSION["rank"] = null;
+}
+if(!$_SESSION["connected"]) {
+    header('Location: ./login.php');
+}
+
 define('ROOT', dirname(dirname(__DIR__)));
 
 require_once("./includes/DAO.class.php");
@@ -35,71 +49,58 @@ if(!empty($_POST)) {
 ?>
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
     <meta charset="utf-8" />
-    <title>Admin Panel - Add a storage plan</title>
-    <link href="./assets/css/css.css" rel="stylesheet">
-    <link href="../../public/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>Admin Panel - Adit plan</title>
+    <link id="style" href="./assets/css/<?php echo $_SESSION["design"]; ?>.css" rel="stylesheet">
 </head>
-
 <body>
-    <?php include("./includes/navbar.php"); ?>
-    <header>
-        <h1>Add a storage plan</h1>
-    </header>
-    <div>
-        <?php
-        if(isset($message)) {
-            echo $message;
-        }
-        ?>
-        <fieldset>
-            <legend>Add a storage plan</legend>
-            <div>
-                <form action="./plansEdit.php" method="post">
-                   <div>
-                        <label for="id">ID</label>  
+    <?php include('./includes/header.php'); ?>
+    <div id="main">
+        <?php include('./includes/navbar.php'); ?>
+        <div class="container-max">
+            <section>
+                <div>
+                    <?php
+                    if(isset($message)) {
+                        echo '<div class="userDetails">';
+                        echo $message;
+                        echo '</div>';
+                    }
+                    ?>
+                    <fieldset>
+                        <legend>Add a storage plan</legend>
                         <div>
-                            <input class="readonly" type="number" name="id" value="<?php echo $plan['id']; ?>" readonly>
+                            <form action="./plansEdit.php" method="post">
+                                <div>
+                                    <label for="id">ID</label>
+                                    <input class="readonly" type="number" name="id" value="<?php echo $plan['id']; ?>" readonly>
+                                    <br/>
+                                    <label for="size">Size (GB)</label>
+                                    <input type="number" name="size" value="<?php echo $plan['size']/1000000000; ?>" step="1" min="0" required>
+                                    <br/>
+                                    <label for="price">Price (€)</label>
+                                    <input type="number" name="price" value="<?php echo $plan['price']; ?>" min="0" required>
+                                    <br/>
+                                    <label for="duration">Duration (months)</label>
+                                    <input type="number" name="duration" value="<?php echo $plan['duration']; ?>" min="1" required>
+                                    <br/>
+                                    <label for="productID">Product ID</label>
+                                    <input type="text" name="productID" value="<?php echo $plan['product_id']; ?>" required>
+                                    <br/>
+                                    <button type="submit" id="editButton" name="editButton">Edit</button>
+                                    <button type="cancel" id="cancelButton" name="cancelButton">Cancel</button>
+                                </div>
+                            </form>
                         </div>
-                    </div>
-                    <br/>
-                    <div>
-                        <label for="size">Size (GB)</label>  
-                        <div>
-                            <input type="number" name="size" value="<?php echo $plan['size']/1000000000; ?>" step="1" min="0" required>
-                        </div>
-                    </div>
-                    <br/>
-                    <div>
-                        <label for="price">Price (€)</label>  
-                        <div>
-                            <input type="number" name="price" value="<?php echo $plan['price']; ?>" min="0" required>
-                        </div>
-                    </div>
-                    <br/>
-                    <div>
-                        <label for="duration">Duration (months)</label>  
-                        <div>
-                            <input type="number" name="duration" value="<?php echo $plan['duration']; ?>" min="1" required>
-                        </div>
-                    </div>
-                    <br/>
-                    <div>
-                        <label for="productID">Product ID</label>  
-                        <div>
-                            <input type="text" name="productID" value="<?php echo $plan['product_id']; ?>" required>
-                        </div>
-                    </div>
-                    <br/>
-                    <div>
-                        <button type="submit" id="editButton" name="editButton">Edit</button>
-                        <button type="cancel" id="cancelButton" name="cancelButton">Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </fieldset>
+                    </fieldset>
+                </div>
+            </section>
+        </div>
     </div>
-    <?php include("./includes/footer.php"); ?>
+    <?php include('./includes/footer.php'); ?>
+    <script src="./assets/js/jQuery.min.js"></script>
+    <script src="./assets/js/fontAwesome.js"></script>
 </body>
 </html>

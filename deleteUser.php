@@ -17,51 +17,55 @@ if(!$_SESSION["connected"]) {
 include_once("../runDeleteUser.php");
 include_once("./includes/DAO.class.php");
 
+$cron = new cronDeleteUser();
 $DAO = new DAO();
 
 if(!empty($_POST)) {
+    ob_start();
     $error = false;
     switch($_POST['typeOfDelete']) {
             case "id":
-                $userID = $_POST['textValue'];
-                if(is_numeric($userID)) {
-                    if(!$DAO->isIDinDatabase($userID)) {
+                if(is_numeric($_POST['textValue'])) {
+                    if(!$DAO->isIDinJSON($_POST['textValue'])) {
+                        $cron->deleteByID($_POST['textValue']); 
+                    } else {
                         $error = true;
-                        $message = "ID doesn't exist in database.";
+                        $result = "Error : User is protected";
                     }
                 } else {
                     $error = true;
-                    $message = "ID specified isn't an integer.";
+                    $result = "ID specified isn't an integer.";
                 }
                 break;
             case "email":
-                if(!$DAO->isEmailInDatabase($_POST['textValue'])) {
-                    $error = true;
-                    $message = "Email doesn't exist in database.";
+                if(!$DAO->isEmailInJSON($_POST['textValue'])) {
+                    $cron->deleteByEmail($_POST['textValue']);
                 } else {
-                    $userID = $DAO->getIDfromEmail($_POST['textValue']);
+                    $error = true;
+                    $result = "Error : User is protected";
                 }
                 break;
             case "username":
-                if(!$DAO->isUsernameInDatabase($_POST['textValue'])) {
-                    $error = true;
-                    $message = "Username doesn't exist in database.";
+                if(!$DAO->isUsernameInJSON($_POST['textValue'])) {
+                    $cron->deleteByUsername($_POST['textValue']);
                 } else {
-                    $userID = $DAO->getIDfromUsername($_POST['textValue']);
+                    $error = true;
+                    $result = "Error : User is protected";
                 }
                 break;
             default:
                 $error = true;
-                $message = "Unknow value of delete type"; 
+                $result = "Unknow value of delete type"; 
                 break;
     }
-    if(!$error) {
-        $numberOfRowDeleted = $DAO->deleteUserVerification($userID);
-        if($numberOfRowDeleted == 0) {
-            $message = 'No validation found for ID : '.$userID;
-        } else {
-            $message = 'User validation succesfully deleted from database. (ID : '.$userID.')';
+    $trashOutput = ob_get_clean();
+    $isHere = strpos($trashOutput, "User not found in database.\n");
+    if($isHere === false) {
+        if(!$error) {
+            $result = "User successfully deleted.";
         }
+    } else {
+        $result = "User not found in database.";
     }
 }
 
@@ -72,7 +76,7 @@ if(!empty($_POST)) {
     <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-    <title>Admin Panel - Delete user validation</title>
+    <title>Admin Panel - Delete user</title>
     <link id="style" href="./assets/css/<?php echo $_SESSION["design"]; ?>.css" rel="stylesheet">
 </head>
 <body>
@@ -83,17 +87,17 @@ if(!empty($_POST)) {
             <section>
                 <div>
                     <?php
-                        if(isset($message)) {
+                        if(isset($result)) {
                             echo '<div class="userDetails">';
-                            echo $message;
+                            echo $result;
                             echo '</div>'; 
                         }
                     ?>
                 </div>
                 <br/>
-                <form action="./deleteValidation.php" method="post">
+                <form action="./deleteUser.php" method="post">
                     <fieldset>
-                        <legend>Delete user validation</legend>
+                        <legend>Delete user</legend>
                         <div>
                             <label>Delete by :</label>
                             <br/>
@@ -115,6 +119,8 @@ if(!empty($_POST)) {
                         <button type="reset" id="cancelButton" name="cancelButton">Cancel</button>
                     </fieldset>
                 </form>
+                <br/>
+                <a href="./deleteValidation.php" title="Delete user valdiaiton">Delete user validation</a>
             </section>
         </div>
     </div>

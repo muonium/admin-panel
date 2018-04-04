@@ -1,0 +1,326 @@
+:root {
+    --backgroundBody: #36393e;
+    --backgroundMenu: #202224;
+    --textColorSidebar: white;
+    --defaultColorFont: white;
+    --textColorContainer: white;
+    
+    --textColorFootbar: white;
+    --textColorFootbarLink: white;
+    
+    --textColorFieldset: white;
+    --textColorFieldsetLegend: white;
+    --backgroundColorFieldsetLegend: black;
+    --backgroundColorFieldset: #202224;
+    --colorBorderFieldset: white;
+    --colorBorderFieldsetLegend: #ddd;
+    
+    --textColorButton: white;
+    --backgroundColorButton: #36393e;
+    --colorTextInput: white;
+    --boxShadowColorButton: white;
+    --borderColorButton: white;
+    --backgroundColorButtonHover: white;
+    --backgroundColorButtonHover2: white;
+    
+    --backgroundColorOddTable: #202224;
+    --backgroundColorEvenTable: #36393e;
+    --backgroundColorHeadTable: #36393e;
+    
+    --textColorButtonHover: black;
+    --colorLink: white;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+html, body {
+    height: 100%;
+    max-width: 100%;
+}
+
+body {
+    min-height: 100%;
+    max-height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Roboto, Helvetica, sans-serif;
+	font-size: 14px;
+	overflow-x: hidden;
+}
+
+a {
+    color: var(--colorLink);
+    text-decoration: underline;
+}
+
+svg, path {
+    cursor: pointer;
+}
+
+div {
+    display: block;
+}
+
+
+#main {
+    padding-top: 70px;
+    display: flex;
+    min-height: 100%;
+    height: auto;
+    max-width: 100%;
+}
+
+
+/* HEADER */
+header {
+    background-color: var(--backgroundMenu);
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.4);
+    height: 70px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 30px;
+    position: fixed;
+    top: 0;
+    z-index: 6;
+}
+
+#logo {
+    flex: 1;
+}
+
+#logo img {
+    height: 30px;
+    
+}
+
+
+/* SIDEBAR */
+.sidebar {
+    background-color: var(--backgroundMenu);
+    color: var(--textColorSidebar);
+    height: auto;
+    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.sidebar span {
+    padding-top: 5px;
+    display: block;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    max-height: calc(100vh - 80px);
+    width: 100%;
+}
+
+.sidebar li {
+    text-align: center;
+    display: block;
+    height: 70px;
+    width: auto;
+}
+
+.sidebar a {
+    color: var(--textColorSidebar);
+}
+
+.container-max {
+    background-color: var(--backgroundBody);
+    color: var(--textColorContainer);
+    width: 100%;
+    max-width: 100%;
+    min-height: 650px;
+    padding: 50px;
+}
+
+h1 {
+    color: var(--textColorSidebar);
+    padding: 10px;
+}
+
+.iconRight a {
+    margin-left: 25px;
+}
+
+
+/* FOOTER */
+footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background-color: var(--backgroundMenu);
+    color: var(--textColorFootbar);
+    box-shadow: 0 -2px 8px 0px rgba(0, 0, 0, 0.4);
+    padding-top: 10px;
+    z-index: 7;
+}
+
+footer > ul {
+    list-style: none;
+}
+
+footer > ul:nth-child(2) {
+    display: inline-block;
+    height: 50px;
+    margin: 0px;
+    text-align: center;
+}
+
+footer > ul:nth-child(2) > li {
+    margin: auto;
+    text-align: center;
+}
+
+footer > ul:first-child > li {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+footer > ul > li > a {
+    text-decoration: none;
+    border-bottom: dotted 1px rgb(64, 64, 64);
+    color: var(--textColorFootbarLink);
+}
+
+/* FIELDSET */
+fieldset {
+    font-family: sans-serif;
+    border: 2px solid var(--colorBorderFieldset);
+    background: var(--backgroundColorFieldset);
+    border-radius: 2px;
+    padding: 25px 50px 25px 35px;
+    color: var(--textColorFieldset);
+}
+
+fieldset legend {
+    background: var(--backgroundColorFieldsetLegend);
+    color: var(--textColorFieldsetLegend);
+    padding: 5px 30px;
+    font-size: 25px;
+    border-radius: 5px;
+    box-shadow: 0 0 0 2px var(--colorBorderFieldsetLegend);
+    margin-left: 20px;
+}
+
+fieldset input[type="text"], fieldset input[type="password"], fieldset input[type="number"] {
+    color: var(--colorTextInput);
+    box-sizing: border-box;
+    outline: none;
+    display: block;
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background: transparent;
+    margin-bottom: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    height: 45px;
+    cursor: pointer;
+}
+
+fieldset input[type="checkbox"] {
+    display: inline-block;
+    margin: 0px 10px 0px 10px;
+    cursor: pointer;
+}
+
+fieldset button[type="submit"], fieldset button[type="cancel"], fieldset button[type="reset"] {
+    box-shadow: inset 0px 1px 0px 0px var(--boxShadowColorButton);
+    background-color: var(--backgroundColorButton);
+    border: 1px solid var(--borderColorButton);
+    display: inline-block;
+    cursor: pointer;
+    color: var(--textColorButton);
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+fieldset button[type="submit"]:hover, fieldset button[type="cancel"]:hover, fieldset button[type="reset"]:hover {
+    background: linear-gradient(to bottom, var(--backgroundColorButtonHover) 5%, var(--backgroundColorButtonHover2) 100%);
+    background-color: var(--backgroundColorButtonHover);
+    color: var(--textColorButtonHover);
+}
+
+fieldset input[type="radio"] {
+    display: inline-block;
+}
+
+fieldset select {
+    -webkit-border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    -webkit-user-select: none;
+    background-position: 97% center;
+    background-repeat: no-repeat;
+    border: 1px solid #AAA;
+    color: #555;
+    display: block;
+    font-size: inherit;
+    overflow: hidden;
+    padding: 5px 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    margin: 20px 0px 20px 0px;
+    color: var(--TextColorFieldset);
+    background-color: var(--backgroundColorFieldset);
+}
+
+.errorMessage {
+    margin: 20px 0px 20px 0px;
+    padding: 20px;
+    color: var(--TextColorFieldset);
+    background-color: var(--backgroundColorFieldset);
+}
+
+.userDetails {
+    margin: 20px 0px 20px 0px;
+    padding: 20px;
+    color: var(--TextColorFieldset);
+    background-color: var(--backgroundColorFieldset);
+}
+
+.checkboxDoubleAuth {
+    margin: 10px 10px 20px 20px !important;
+}
+
+.addNewPlanLink {
+    margin: 15px;
+}
+
+table {
+    width: 100%;
+}
+
+table th {
+    background-color: var(--backgroundColorHeadTable);
+    padding: 5px;
+}
+table td {
+    padding: 10px;
+}
+
+table tr:nth-child(even) {
+    background-color: var(--backgroundColorEvenTable);
+}
+
+table tr:nth-child(odd) {
+    background-color: var(--backgroundColorOddTable);
+}

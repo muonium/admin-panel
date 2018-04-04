@@ -66,10 +66,10 @@ var sendRegisterRequest = function()
     var returnArea = document.querySelector("#return p");
 
     if(field_mail.length < 6 || field_login.length < 2) {
-        returnArea.innerHTML = "Mail or login too short.";
+        returnArea.innerHTML = "<div class=\"errorMessage\">Mail or login too short.</div>";
     }
     else if(field_password.length < 6 || field_passphrase.length < 6) {
-        returnArea.innerHTML = "Pass too short.";
+        returnArea.innerHTML = "<div class=\"errorMessage\">Pass too short.</div>";
 	}
     else {
 
@@ -85,11 +85,11 @@ var sendRegisterRequest = function()
                 if(xhr.responseText.length > 2)
                 {
                     if(xhr.responseText.substr(0, 3) == "ok@") {
-                        returnArea.innerHTML = xhr.responseText.substr(3);
+                        returnArea.innerHTML = "<div class=\"errorMessage\">" + xhr.responseText.substr(3) + "</div>";
                         return false;
                     }
                     else {
-                        returnArea.innerHTML = xhr.responseText;
+                        returnArea.innerHTML = "<div class=\"errorMessage\">" + xhr.responseText + "</div>";
                     }
                 }
             }
